@@ -38,14 +38,7 @@ img{max-width:100%;display:block;}
 .photo{position:relative;overflow:hidden;background:var(--black-2);}
 .photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .photo.img-missing img{display:none;}
-.photo.img-missing::after{
-  content:attr(data-caption);
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-body);font-size:12px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,.32);
-  background:linear-gradient(135deg,#1B2440,#0A0B0D);
-  text-align:center;padding:20px;
-}
+.photo.img-missing{display:none;}
 
 /* ---------- buttons ---------- */
 .btn{font-family:var(--font-body);font-weight:700;font-size:16px;border:none;cursor:pointer;border-radius:999px;padding:19px 40px;display:inline-flex;align-items:center;gap:10px;transition:transform .3s cubic-bezier(.3,1.3,.5,1), background .3s ease;}
@@ -84,7 +77,7 @@ img{max-width:100%;display:block;}
 
 /* ============ SCROLL-PINNED SEQUENCES ============ */
 .seq-section{position:relative;background:var(--black);}
-.seq-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.seq-sticky{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 20px;}
 .seq-line{position:absolute;opacity:0;transform:translateY(34px);transition:opacity .9s ease, transform .9s ease;text-align:center;padding:0 26px;max-width:900px;}
 .seq-line.active{opacity:1;transform:translateY(0);}
 .seq-line.serif{font-family:var(--font-serif);font-weight:500;font-size:clamp(24px,4vw,44px);color:var(--cream);line-height:1.6;}
@@ -104,7 +97,7 @@ img{max-width:100%;display:block;}
 .passport-head{text-align:center;margin-bottom:10px;}
 .passport-head .eyebrow{justify-content:center;display:flex;color:var(--accent-deep);}
 .passport-head .poster-title{color:var(--ink);}
-.passport-strip{display:flex;gap:24px;overflow-x:auto;padding:56px 28px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.passport-strip{display:flex;gap:24px;overflow-x:auto;padding:56px 28px 20px;scroll-snap-type:none;-webkit-overflow-scrolling:touch;}
 .passport-strip::-webkit-scrollbar{height:6px;}
 .passport-strip::-webkit-scrollbar-thumb{background:rgba(21,22,27,.2);border-radius:6px;}
 .passport-page{flex:0 0 230px;aspect-ratio:3/4;background:var(--white);border:1px solid rgba(21,22,27,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-soft);scroll-snap-align:center;position:relative;}
@@ -208,7 +201,7 @@ footer{background:var(--black);padding:26px 0 34px;text-align:center;font-size:1
 </section>
 
 <!-- ============ STORY (seq, 5 lines) ============ -->
-<section class="seq-section" id="story" style="height:500vh;">
+<section class="seq-section" id="story" style="height:240vh;">
   <div class="seq-sticky">
     <p class="seq-line serif" data-i="0">학교에서<br>실내화를 신던 기억.</p>
     <p class="seq-line serif" data-i="1">친구를 만났고</p>
@@ -219,7 +212,7 @@ footer{background:var(--black);padding:26px 0 34px;text-align:center;font-size:1
 </section>
 
 <!-- ============ TRANSFORM 化 (seq, 7 lines) ============ -->
-<section class="seq-section" id="transform" style="height:700vh;">
+<section class="seq-section" id="transform" style="height:320vh;">
   <span class="seq-tag eyebrow">化 · TO BECOME, TO BLOOM</span>
   <div class="seq-sticky">
     <p class="seq-line display" data-i="0">化</p>
@@ -269,7 +262,7 @@ footer{background:var(--black);padding:26px 0 34px;text-align:center;font-size:1
   
 
 <!-- ============ TIMELINE (seq, 5 lines) ============ -->
-<section class="seq-section" id="timeline" style="height:500vh;">
+<section class="seq-section" id="timeline" style="height:220vh;">
   <span class="seq-tag eyebrow" style="color:var(--accent);">HOW WE GROW</span>
   <div class="seq-sticky">
     <p class="seq-line serif" data-i="0">혼자 왔다.</p>
@@ -369,50 +362,7 @@ stampPages.forEach(page=>{
   });
 });
 
-/* ---------- SHOE CUSTOMIZER (pointer drag) ---------- */
-const shoeDrop = document.getElementById('shoeDrop');
-const customizerResult = document.getElementById('customizerResult');
-const resetShoe = document.getElementById('resetShoe');
-const REQUIRED = 4;
-let placedCount = 0;
 
-document.querySelectorAll('.patch').forEach(patch=>{
-  patch.addEventListener('pointerdown', (e)=>{
-    e.preventDefault();
-    const svgHTML = patch.querySelector('svg').outerHTML;
-    const ghost = document.createElement('div');
-    ghost.className = 'patch-ghost';
-    ghost.innerHTML = svgHTML;
-    document.body.appendChild(ghost);
-    move(e.clientX, e.clientY);
-
-    function move(x,y){ ghost.style.left = x+'px'; ghost.style.top = y+'px'; }
-    function onMove(ev){ move(ev.clientX, ev.clientY); }
-    function onUp(ev){
-      document.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerup', onUp);
-      const rect = shoeDrop.getBoundingClientRect();
-      if(ev.clientX >= rect.left && ev.clientX <= rect.right && ev.clientY >= rect.top && ev.clientY <= rect.bottom){
-        const placed = document.createElement('div');
-        placed.className = 'placed-patch';
-        placed.innerHTML = svgHTML;
-        placed.style.left = (ev.clientX - rect.left) + 'px';
-        placed.style.top = (ev.clientY - rect.top) + 'px';
-        shoeDrop.appendChild(placed);
-        placedCount++;
-        if(placedCount >= REQUIRED){ customizerResult.classList.add('show'); }
-      }
-      ghost.remove();
-    }
-    document.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerup', onUp);
-  });
-});
-resetShoe.addEventListener('click', ()=>{
-  shoeDrop.querySelectorAll('.placed-patch').forEach(p=>p.remove());
-  placedCount = 0;
-  customizerResult.classList.remove('show');
-});
 </script>
 </body>
 </html>
