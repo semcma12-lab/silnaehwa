@@ -108,6 +108,13 @@ img{max-width:100%;display:block;}
 .stamp-sub{font-family:var(--font-body);font-size:9px;letter-spacing:1.5px;}
 .stamp-progress{text-align:center;margin-top:34px;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:1px;color:var(--ink);}
 
+
+.stamp-card{position:relative;width:150px;height:150px;cursor:pointer;transform-style:preserve-3d;transition:.6s;}
+.stamp-front,.stamp-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;}
+.stamp-back{transform:rotateY(180deg);}
+.stamp-back img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid #B9924A;}
+.passport-page.stamped .stamp-card{transform:rotateY(180deg);}
+
 /* ============ GALLERY ============ */
 .gallery-section{background:var(--paper);padding:60px 0 140px;}
 .gallery-head{text-align:center;margin-bottom:50px;}
@@ -231,15 +238,109 @@ footer{background:var(--black);padding:26px 0 34px;text-align:center;font-size:1
     <span class="eyebrow">MEMORY PASSPORT</span>
     <h2 class="poster-title">기록되는 건<br>실력이 아니라 순간입니다.</h2>
   </div>
+
   <div class="passport-strip">
-    <div class="passport-page"><span class="index">01</span><span class="stamp-ring"><span class="stamp-name">BOWLING</span><span class="stamp-sub">SILNAEHWA ENTRY</span></span></div>
-    <div class="passport-page"><span class="index">02</span><span class="stamp-ring"><span class="stamp-name">TABLE TENNIS</span><span class="stamp-sub">SILNAEHWA ENTRY</span></span></div>
-    <div class="passport-page"><span class="index">03</span><span class="stamp-ring"><span class="stamp-name">BADMINTON</span><span class="stamp-sub">SILNAEHWA ENTRY</span></span></div>
-    <div class="passport-page"><span class="index">04</span><span class="stamp-ring"><span class="stamp-name">CLIMBING</span><span class="stamp-sub">SILNAEHWA ENTRY</span></span></div>
-    <div class="passport-page"><span class="index">05</span><span class="stamp-ring"><span class="stamp-name">DARTS</span><span class="stamp-sub">SILNAEHWA ENTRY</span></span></div>
-    <div class="passport-page"><span class="index">06</span><span class="stamp-ring"><span class="stamp-name">SCREEN SPORTS</span><span class="stamp-sub">SILNAEHWA ENTRY</span></span></div>
+
+    <div class="passport-page">
+      <span class="index">01</span>
+      <div class="stamp-card" data-img="images/01.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">BOWLING</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/01.jpg" alt="BOWLING">
+        </div>
+      </div>
+    </div>
+    <div class="passport-page">
+      <span class="index">02</span>
+      <div class="stamp-card" data-img="images/02.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">TABLE TENNIS</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/02.jpg" alt="TABLE TENNIS">
+        </div>
+      </div>
+    </div>
+    <div class="passport-page">
+      <span class="index">03</span>
+      <div class="stamp-card" data-img="images/03.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">BADMINTON</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/03.jpg" alt="BADMINTON">
+        </div>
+      </div>
+    </div>
+    <div class="passport-page">
+      <span class="index">04</span>
+      <div class="stamp-card" data-img="images/04.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">CLIMBING</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/04.jpg" alt="CLIMBING">
+        </div>
+      </div>
+    </div>
+    <div class="passport-page">
+      <span class="index">05</span>
+      <div class="stamp-card" data-img="images/05.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">DARTS</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/05.jpg" alt="DARTS">
+        </div>
+      </div>
+    </div>
+    <div class="passport-page">
+      <span class="index">06</span>
+      <div class="stamp-card" data-img="images/06.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">SCREEN SPORTS</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/06.jpg" alt="SCREEN SPORTS">
+        </div>
+      </div>
+    </div>
+    <div class="passport-page">
+      <span class="index">07</span>
+      <div class="stamp-card" data-img="images/07.jpg">
+        <div class="stamp-front">
+          <span class="stamp-ring">
+            <span class="stamp-name">CAFE</span>
+            <span class="stamp-sub">CLICK</span>
+          </span>
+        </div>
+        <div class="stamp-back">
+          <img src="images/07.jpg" alt="CAFE">
+        </div>
+      </div>
+    </div>
   </div>
-  <p class="stamp-progress" id="stampProgress">0 / 6 stamped</p>
+  <p class="stamp-progress" id="stampProgress">0 / 7 stamped</p>
 </section>
 
 <!-- ============ GALLERY ============ -->
@@ -348,21 +449,19 @@ function initSeq(sectionEl){
 ['why','story','transform','timeline'].forEach(id=> initSeq(document.getElementById(id)));
 
 /* ---------- STAMP COLLECTING ---------- */
-const stampPages = document.querySelectorAll('.passport-page');
-const stampProgress = document.getElementById('stampProgress');
-let stampCount = 0;
+const stampPages=document.querySelectorAll('.passport-page');
+const stampProgress=document.getElementById('stampProgress');
+let stampCount=0;
 stampPages.forEach(page=>{
-  page.querySelector('.stamp-ring').addEventListener('click', ()=>{
-    if(page.classList.contains('stamped')) return;
-    page.classList.add('stamped');
-    stampCount++;
-    stampProgress.textContent = stampCount === stampPages.length
-      ? 'PASSPORT COMPLETE'
-      : `${stampCount} / ${stampPages.length} stamped`;
-  });
+ const card=page.querySelector('.stamp-card');
+ card.addEventListener('click',()=>{
+   if(page.classList.contains('stamped')) return;
+   page.classList.add('stamped');
+   stampCount++;
+   stampProgress.textContent=`${stampCount} / ${stampPages.length} stamped`;
+   if(stampCount===stampPages.length) stampProgress.textContent='PASSPORT COMPLETE';
+ });
 });
-
-
 </script>
 </body>
 </html>
